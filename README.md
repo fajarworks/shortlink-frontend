@@ -25,6 +25,13 @@ A URL shortener web application that allows users to convert long URLs into shor
 
 *Feature availability depends on the implemented frontend functionality and backend API.*
 
+## Preview Pages 
+![Alt Text](./public/images/localhost_5173_create.png)
+![Alt Text](./public/images/localhost_5173_dashboard.png)
+![Alt Text](./public/images/localhost_5173_landing.png)
+![Alt Text](./public/images/localhost_5173_register.png)
+![Alt Text](./public/images/localhost_5173_login.png)
+
 ## Prerequisites
 
 Make sure the following tools are installed on your machine:
