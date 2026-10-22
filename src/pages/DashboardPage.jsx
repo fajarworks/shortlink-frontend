@@ -12,7 +12,8 @@ import {
   FiCheck,
 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyLinks } from "../redux/slices/linkSlice";
+import { deleteMyLinks, getMyLinks } from "../redux/slices/linkSlice";
+import { Link } from "react-router";
 
 const SHORT_BASE_URL = "http://localhost:8080";
 
@@ -55,9 +56,8 @@ export default function Dashboard() {
   };
 
   const handleDelete = (id) => {
-    console.log(id)
-    // TODO: dispatch(deleteLink(id)) setelah thunk + endpoint DELETE dibuat
-  };
+    dispatch(deleteMyLinks(id))
+    };
 
   return (
     <main className="min-h-screen bg-[#f7f8fa] px-4 py-8 font-sans text-[#20242c] sm:px-6">
@@ -121,7 +121,7 @@ export default function Dashboard() {
         </div>
 
         <section className="space-y-3">
-          {isPending && (
+          {isPending  && links?.length != 0 &&    (
             <p className="text-center text-xs text-slate-500">Loading...</p>
           )}
 
@@ -135,15 +135,14 @@ export default function Dashboard() {
               className="flex min-h-22 items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-white px-3 py-3 sm:px-3"
             >
               <div className="min-w-0 flex-1">
-                <a
-                  href={`${SHORT_BASE_URL}/${link.slug}`}
+                <Link
+                  to={`${SHORT_BASE_URL}/${link.slug}`}
                   target="_blank"
-                  rel="noreferrer"
                   className="mb-1 flex w-fit max-w-full items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800"
                 >
                   <FiLink className="shrink-0" size={13} />
                   <span className="truncate">{link.slug}</span>
-                </a>
+                </Link>
 
                 <p
                   title={link.destination_url}
@@ -165,7 +164,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="flex shrink-0 items-center gap-2">
                 <button
                   type="button"
@@ -198,7 +196,7 @@ export default function Dashboard() {
             </article>
           ))}
 
-          {!isPending && links.length === 0 && (
+          {!isPending && (
             <div className="rounded-xl border border-slate-200 bg-white px-4 py-12 text-center">
               <FiSearch className="mx-auto mb-3 text-slate-400" size={24} />
               <p className="text-sm font-medium text-slate-700">
