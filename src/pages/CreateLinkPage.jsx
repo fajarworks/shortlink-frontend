@@ -18,22 +18,14 @@ export default function CreateLinkPage() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm({ defaultValues: { url: "", slug: "" } });
 
-  const slug = watch("slug");
 
   const onSubmit = async ({ url, slug }) => {
     setServerError("");
     try {
-      // TODO: sambungkan ke backend Go lo
-      // const res = await fetch("/api/links", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ url, slug: slug || undefined }),
-      // });
-      // if (!res.ok) throw new Error((await res.json()).message);
+
       await new Promise((r) => setTimeout(r, 600)); // simulasi
       console.log({ url, slug });
       navigate("/dashboard");
@@ -64,7 +56,6 @@ export default function CreateLinkPage() {
           noValidate
           className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
         >
-          {/* Destination URL */}
           <div>
             <label
               htmlFor="url"
@@ -82,7 +73,6 @@ export default function CreateLinkPage() {
                 id="url"
                 type="url"
                 placeholder="https://example.com/your-long-url-here"
-                aria-invalid={!!errors.url}
                 className={inputBase}
                 {...register("url", {
                   required: "Destination URL wajib diisi",
@@ -94,7 +84,7 @@ export default function CreateLinkPage() {
               />
             </div>
             {errors.url ? (
-              <p role="alert" className="mt-1.5 text-xs text-red-600">
+              <p  className="mt-1.5 text-xs text-red-600">
                 {errors.url.message}
               </p>
             ) : (
@@ -104,7 +94,6 @@ export default function CreateLinkPage() {
             )}
           </div>
 
-          {/* Custom slug */}
           <div className="mt-6">
             <label
               htmlFor="slug"
@@ -145,7 +134,6 @@ export default function CreateLinkPage() {
             )}
           </div>
 
-          {/* Live preview */}
           <div className="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
             <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-brand">
               <FiEye aria-hidden /> Live Preview
@@ -153,7 +141,7 @@ export default function CreateLinkPage() {
             <p className="mt-1 text-sm">
               Your short link will be:{" "}
               <span className="break-all font-medium text-brand">
-                {BASE_URL}/{slug || PLACEHOLDER_SLUG}
+                {BASE_URL}/{ PLACEHOLDER_SLUG}
               </span>
             </p>
           </div>
