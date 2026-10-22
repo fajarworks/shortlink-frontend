@@ -5,11 +5,14 @@ import {
   FiEye,
   FiEyeOff,
 } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router";
+import { registerUser } from "../redux/slices/authSlice";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -26,7 +29,11 @@ export default function Register() {
 
   const onSubmit = async (data) => {
     try {
-      console.log("Register data:", data);
+      const payload = {
+        email: data.email,
+        password: data.password
+      }
+      dispatch(registerUser(payload))
     } catch (error) {
       console.error("Registrasi gagal:", error);
     }
@@ -54,7 +61,6 @@ export default function Register() {
             noValidate
             className="space-y-3"
           >
-            {/* Email Field */}
             <div>
               <label
                 htmlFor="email"
@@ -89,8 +95,6 @@ export default function Register() {
                 </p>
               )}
             </div>
-
-            {/* Password Field */}
             <div>
               <label
                 htmlFor="password"
@@ -188,7 +192,6 @@ export default function Register() {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -199,7 +202,6 @@ export default function Register() {
             </button>
           </form>
 
-          {/* Terms & Conditions text */}
           <p className="mt-4 text-center text-[10px] text-slate-400 leading-relaxed">
             By signing up, you agree to our{" "}
             <Link to="/terms" className="underline hover:text-slate-600">

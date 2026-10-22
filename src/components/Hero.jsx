@@ -12,7 +12,7 @@ export default function Hero() {
     formState: { errors, isSubmitting },
   } = useForm({ defaultValues: { url: "" } });
 
-  const onSubmit = async ({ url }) => {
+  const onSubmit = async () => {
     // TODO: sambungkan ke backend Go lo, mis. POST /api/links { url }
     // const res = await fetch("/api/links", {
     //   method: "POST",

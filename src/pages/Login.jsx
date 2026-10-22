@@ -6,10 +6,14 @@ import {
   FiEye,
   FiEyeOff,
 } from "react-icons/fi";
-import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import { loginUser } from "../redux/slices/authSlice";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const {
     register,
@@ -24,8 +28,8 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      console.log("Login data:", data);
-
+      dispatch(loginUser(data)).unwrap()
+      navigate("/dashboard")
     } catch (error) {
       console.error("Login gagal:", error);
     }
