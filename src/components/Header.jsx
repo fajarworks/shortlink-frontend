@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import {  useSelector } from "react-redux";
 import { FiPlus } from "react-icons/fi";
-// Sesuaikan dengan nama action logout di authSlice kamu
 
 export default function Header() {
   const location = useLocation();
