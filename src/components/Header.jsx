@@ -25,8 +25,7 @@ export default function Header() {
     <header className="w-full border-b border-slate-100 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-8">
-          <Link
-            to={isLoggedIn ? "/dashboard" : "/landing"}
+          <Link to="landing"
             className="py-3.5 text-base font-extrabold tracking-tight text-slate-900"
           >
             ShortLink
