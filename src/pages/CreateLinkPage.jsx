@@ -8,6 +8,8 @@ import {
   FiBarChart2,
   FiGrid,
 } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { createLinks } from "../redux/slices/linkSlice";
 
 const BASE_URL = "https://short.link";
 const PLACEHOLDER_SLUG = "my-custom-slug";
@@ -19,16 +21,15 @@ export default function CreateLinkPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ defaultValues: { url: "", slug: "" } });
+  } = useForm({ defaultValues: { destination_url: "", slug: "" } });
 
+  const dispatch = useDispatch()
 
-  const onSubmit = async ({ url, slug }) => {
+  const onSubmit = async (data) => {
     setServerError("");
     try {
-
-      await new Promise((r) => setTimeout(r, 600)); // simulasi
-      console.log({ url, slug });
-      navigate("/dashboard");
+      dispatch(createLinks(data))
+      navigate("/dashboard")
     } catch (err) {
       setServerError(err.message || "Gagal membuat link");
     }
@@ -70,11 +71,11 @@ export default function CreateLinkPage() {
             >
               <FiLink className="shrink-0 text-slate-400" aria-hidden />
               <input
-                id="url"
+                id="destination_url"
                 type="url"
                 placeholder="https://example.com/your-long-url-here"
                 className={inputBase}
-                {...register("url", {
+                {...register("destination_url", {
                   required: "Destination URL wajib diisi",
                   pattern: {
                     value: /^https?:\/\/[^\s/$.?#].[^\s]*$/i,
@@ -166,7 +167,6 @@ export default function CreateLinkPage() {
           </div>
         </form>
 
-        {/* Info */}
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           <div className="flex gap-3">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-100 text-orange-700">
